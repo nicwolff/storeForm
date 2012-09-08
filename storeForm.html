@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title>Test form</title>
+		<style type="text/css" media="screen">
+			body { font-family: Verdana; font-size: 11px; color: #333; line-height: 2em; }
+			input, select { display: block; margin: .5em 0 }
+			textarea { margin: 0 }
+			input[type=checkbox], input[type=radio] { display: inline }
+		</style>
+		<script type="text/javascript" charset="utf-8">
+			function storeForm () {
+				V=JSON.parse(localStorage['formData']||'{}');
+				M={};
+				F=document.forms;
+				for(i=0;i<F.length;i++){
+					E=F[i].elements;
+					for(j=0;j<E.length;j++){
+						C=E[j];
+						CT=C.type;
+						if(!C.name||CT=='submit'||CT=='hidden')continue;
+						CN=C.name+':'+(M[C.name]=(M[C.name]||0)+1);
+						CR=CT=='checkbox'||CT=='radio';
+						if(CR&&V[CN]==true)C.checked=true;
+						if(V[CN]&&!CR&&!C.value&&!C.selectedIndex){
+							if(CT=='select-one'){
+								for(k=0;k<C.options.length;k++){
+									if(C.options[k].value==V[CN]){
+										C.selectedIndex=k
+									}
+								}
+							}else{
+								C.value=V[CN]
+						}}
+						if(C.value=='-')C.value='';
+						V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);
+				}}
+				localStorage['formData']=JSON.stringify(V);
+				console.log(V);
+			}
+			function clearForm () { localStorage.removeItem('formData') }
+		</script>
+	</head>
+	<body>
+		Click this link: <a href="javascript:V=JSON.parse(localStorage['formData']||'{}');M={};F=document.forms;for(i=0;i<F.length;i++){E=F[i].elements;for(j=0;j<E.length;j++){C=E[j];CT=C.type;if(!C.name||CT=='submit'||CT=='hidden')continue;CN=C.name+':'+(M[C.name]=(M[C.name]||0)+1);CR=CT=='checkbox'||CT=='radio';if(CR&&V[CN]==true)C.checked=true;if(V[CN]&&!CR&&!C.value&&!C.selectedIndex){if(CT=='select-one'){for(k=0;k<C.options.length;k++){if(C.options[k].value==V[CN]){C.selectedIndex=k}}}else{C.value=V[CN]}}if(C.value=='-')C.value='';V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);}}localStorage['formData']=JSON.stringify(V);">storeForm</a> to store or fill in the the values in the form below. Bookmark it or drag it to your bookmark bar to use on any form!
+		<form action="#">
+			<input type="text" name="first_name" placeholder="First name">
+			<input type="text" name="last_name" placeholder="Last name">
+			<textarea name="address" placeholder="Address"></textarea>
+			<select name="state"><option value="" selected="selected">Select a State</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District Of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
+			<input type="text" name="city" placeholder="City">
+			<input type="text" name="zip_code" placeholder="ZIP code">
+			<input type="text" name="multiple" placeholder="Multiple 1">
+			<input type="text" name="multiple" placeholder="Multiple 2">
+			<input type="text" name="multiple" placeholder="Multiple 3">
+			<input type="checkbox" name="offer_term" id="ot1" value="offerterm1"> <label for="ot1">Offer term 1</label>
+			<input type="checkbox" name="offer_term" id="ot2" value="offerterm2"> <label for="ot2">Offer term 2</label>
+			<input type="checkbox" name="offer_term" id="ot3" value="offerterm3"> <label for="ot3">Offer term 3</label>
+			<input type="checkbox" name="offer_term" id="ot4" value="offerterm4"> <label for="ot4">Offer term 4</label>
+			<input type="checkbox" name="offer_term" id="ot5" value="offerterm5"> <label for="ot5">Offer term 5</label>
+			<input type="checkbox" name="offer_term" id="ot6" value="offerterm6"> <label for="ot6">Offer term 6</label><br>
+			<input type="checkbox" name="checkbox_1" id="cb1" value="checkbox1"> <label for="cb1">Checkboxes 1</label>
+			<input type="checkbox" name="checkbox_2" id="cb2" value="checkbox2"> <label for="cb2">Checkboxes 2</label>
+			<input type="checkbox" name="checkbox_3" id="cb3" value="checkbox3"> <label for="cb3">Checkboxes 3</label><br>
+			<input type="radio" name="radio" id="ra1" value="radio1"> <label for="ra1">Radio 1</label>
+			<input type="radio" name="radio" id="ra2" value="radio2"> <label for="ra2">Radio 2</label>
+			<input type="radio" name="radio" id="ra3" value="radio3"> <label for="ra3">Radio 3</label>
+			<input type="radio" name="radio" id="ra4" value="radio4"> <label for="ra4">Radio 4</label>
+			<input type="radio" name="radio" id="ra5" value="radio5"> <label for="ra5">Radio 5</label>
+			<input type="radio" name="radio" id="ra6" value="radio6"> <label for="ra6">Radio 6</label><br>
+			<input type="radio" name="radio2" id="ra21" value="radio21"> <label for="ra21">Radio 1</label>
+			<input type="radio" name="radio2" id="ra22" value="radio22"> <label for="ra22">Radio 2</label>
+			<input type="radio" name="radio2" id="ra23" value="radio23"> <label for="ra23">Radio 3</label>
+			<input type="radio" name="radio2" id="ra24" value="radio24"> <label for="ra24">Radio 4</label>
+			<input type="radio" name="radio2" id="ra25" value="radio25"> <label for="ra25">Radio 5</label>
+			<input type="radio" name="radio2" id="ra26" value="radio26"> <label for="ra26">Radio 6</label><br>
+			<select name="states" multiple="multiple"><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District Of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
+			<input type="hidden" name="hidden1" value="secret1">
+			<input type="hidden" name="hidden2" value="secret2">
+			<input type="hidden" name="hidden3" value="secret3">
+			<input type="submit" value="Submit">
+			<input type="submit" value="storeForm" onClick="storeForm(); return false;">
+			<input type="submit" value="Clear stored form data" onClick="clearForm(); return false;">
+		</form>
+	</body>
+</html>
