@@ -11,4 +11,4 @@ Once it fills in the fields, you can edit them and select this bookmarklet again
 
     localStorage.removeItem('formData')
 
-which will clear all the saved data.
+which will clear all the saved data. You can clear a text field by saving it with only a "-".
