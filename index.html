@@ -1,11 +1,15 @@
 <html>
 	<head>
 		<title>Test form</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<style type="text/css" media="screen">
-			body { font-family: Verdana; font-size: 11px; color: #333; line-height: 2em; }
-			input, select { display: block; margin: .5em 0 }
+			body { margin: 2em; font-family: Verdana; font-size: 11px; color: #333; }
+			form { line-height: 2em; background-color: #eee; border: 2px solid gray; padding: 1.5em; }
+			form input, select { display: block; margin: .5em 0 }
+			input { display: inline }
 			textarea { margin: 0 }
 			input[type=checkbox], input[type=radio] { display: inline }
+			form input[type=submit] { margin-top: 1.5em }
 		</style>
 		<script type="text/javascript" charset="utf-8">
 			function storeForm () {
@@ -41,24 +45,29 @@
 		</script>
 	</head>
 	<body>
+	    <h1>storeForm</h1>
         <p>This bookmarklet lets you save and fill form values, which comes in handy when testing a form that you have to reload repeatedly.</p>
 		<p>Click this link: <a href="javascript:V=JSON.parse(localStorage['formData']||'{}');M={};F=document.forms;for(i=0;i<F.length;i++){E=F[i].elements;for(j=0;j<E.length;j++){C=E[j];CT=C.type;if(!C.name||CT=='submit'||CT=='hidden')continue;CN=C.name+':'+(M[C.name]=(M[C.name]||0)+1);CR=CT=='checkbox'||CT=='radio';if(CR&&V[CN]==true)C.checked=true;if(V[CN]&&!CR&&!C.value&&!C.selectedIndex){if(CT=='select-one'){for(k=0;k<C.options.length;k++){if(C.options[k].value==V[CN]){C.selectedIndex=k}}}else{C.value=V[CN]}}if(C.value=='-')C.value='';V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);}}void(localStorage['formData']=JSON.stringify(V));">storeForm</a> to store or fill in the the values you've entered in the test form below. Bookmark it or drag it to your bookmark bar to use on any form!</p>
 		<form action="#">
+		    <b>These fields all have different names:</b>
 			<input type="text" name="first_name" placeholder="First name">
 			<input type="text" name="last_name" placeholder="Last name">
 			<textarea name="address" placeholder="Address"></textarea>
 			<select name="state"><option value="" selected="selected">Select a State</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District Of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
 			<input type="text" name="city" placeholder="City">
 			<input type="text" name="zip_code" placeholder="ZIP code">
+			<b>These three fields have the same name:</b>
 			<input type="text" name="multiple" placeholder="Multiple 1">
 			<input type="text" name="multiple" placeholder="Multiple 2">
 			<input type="text" name="multiple" placeholder="Multiple 3">
+			<b>These checkboxes have the same name:</b>
 			<input type="checkbox" name="offer_term" id="ot1" value="offerterm1"> <label for="ot1">Offer term 1</label>
 			<input type="checkbox" name="offer_term" id="ot2" value="offerterm2"> <label for="ot2">Offer term 2</label>
 			<input type="checkbox" name="offer_term" id="ot3" value="offerterm3"> <label for="ot3">Offer term 3</label>
 			<input type="checkbox" name="offer_term" id="ot4" value="offerterm4"> <label for="ot4">Offer term 4</label>
 			<input type="checkbox" name="offer_term" id="ot5" value="offerterm5"> <label for="ot5">Offer term 5</label>
 			<input type="checkbox" name="offer_term" id="ot6" value="offerterm6"> <label for="ot6">Offer term 6</label><br>
+			<b>These checkboxes have different names:</b>
 			<input type="checkbox" name="checkbox_1" id="cb1" value="checkbox1"> <label for="cb1">Checkboxes 1</label>
 			<input type="checkbox" name="checkbox_2" id="cb2" value="checkbox2"> <label for="cb2">Checkboxes 2</label>
 			<input type="checkbox" name="checkbox_3" id="cb3" value="checkbox3"> <label for="cb3">Checkboxes 3</label><br>
@@ -74,19 +83,22 @@
 			<input type="radio" name="radio2" id="ra24" value="radio24"> <label for="ra24">Radio 4</label>
 			<input type="radio" name="radio2" id="ra25" value="radio25"> <label for="ra25">Radio 5</label>
 			<input type="radio" name="radio2" id="ra26" value="radio26"> <label for="ra26">Radio 6</label><br>
+			<b>This select control allows multiple selection, which we don't store:</b>
 			<select name="states" multiple="multiple"><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District Of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>
 			<input type="hidden" name="hidden1" value="secret1">
 			<input type="hidden" name="hidden2" value="secret2">
 			<input type="hidden" name="hidden3" value="secret3">
 			<input type="submit" value="Submit">
-            <p>It works with text and textarea, select, checkbox, and radio controls. It doesn't currently work with multiple-select controls... but when's the last time you used one of those?</p>
-            <p>Once it fills in the fields, you can edit them and select this bookmarklet again to update the saved data - but this only works for text and textarea controls; once you save a checked box or radio button the only way to clear it from the saved data is to open the console and enter the command</p>
-                <blockquote><tt>localStorage.removeItem('formData')</tt></blockquote>
-            and you can click this button
-                <input type="submit" value="Clear stored form data" onClick="clearForm(); return false;">
-    		to execute that command and clear the saved data now.<p>
-            <p>which will clear all the saved data. You can clear a text field by saving it with only a "-".</p>
-            <p>There is a formatted copy of the code in the source of this page, and you can click this button <input type="submit" value="storeForm" onClick="storeForm(); return false;"> to run it.</p>
-		</form>
+			</form>
+        <p>It works with text and textarea, select, checkbox, and radio controls. It doesn't currently work with multiple-select controls... but when's the last time you used one of those?</p>
+        <p>Once the bookmarklet fills in the fields, you can edit them and select it again to update the saved data. You can clear a text field by saving it with only a "-", but this only works for text and textarea controls; once you save a checked box or radio button the only way to clear it from the saved data is to open the console and enter the command <tt>localStorage.removeItem('formData')</tt> – although on this page you can click this button <input type="submit" value="Clear stored form data" onClick="clearForm(); return false;"> to execute that command and clear the saved data now.<p>
+        <p>There is a formatted copy of the code in the source of this page, and you can click this button <input type="submit" value="storeForm" onClick="storeForm(); return false;"> to run it.</p>
+        <p>Known bugs:
+            <ul>
+                <li>Only works on controls that are in HTML &lt;form> elements.</li>
+                <li>Doesn't work on multiple-select controls.</li>
+                <li>The only way to clear a saved checkbox is to open the console and enter localStorage.removeItem('formData') .</li>
+            </ul>
+        </p>
 	</body>
 </html>
