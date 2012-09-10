@@ -34,14 +34,14 @@
 						if(C.value=='-')C.value='';
 						V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);
 				}}
-				localStorage['formData']=JSON.stringify(V);
+				void(localStorage['formData']=JSON.stringify(V));
 				console.log(V);
 			}
 			function clearForm () { localStorage.removeItem('formData') }
 		</script>
 	</head>
 	<body>
-		Click this link: <a href="javascript:V=JSON.parse(localStorage['formData']||'{}');M={};F=document.forms;for(i=0;i<F.length;i++){E=F[i].elements;for(j=0;j<E.length;j++){C=E[j];CT=C.type;if(!C.name||CT=='submit'||CT=='hidden')continue;CN=C.name+':'+(M[C.name]=(M[C.name]||0)+1);CR=CT=='checkbox'||CT=='radio';if(CR&&V[CN]==true)C.checked=true;if(V[CN]&&!CR&&!C.value&&!C.selectedIndex){if(CT=='select-one'){for(k=0;k<C.options.length;k++){if(C.options[k].value==V[CN]){C.selectedIndex=k}}}else{C.value=V[CN]}}if(C.value=='-')C.value='';V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);}}localStorage['formData']=JSON.stringify(V);">storeForm</a> to store or fill in the the values in the form below. Bookmark it or drag it to your bookmark bar to use on any form!
+		Click this link: <a href="javascript:V=JSON.parse(localStorage['formData']||'{}');M={};F=document.forms;for(i=0;i<F.length;i++){E=F[i].elements;for(j=0;j<E.length;j++){C=E[j];CT=C.type;if(!C.name||CT=='submit'||CT=='hidden')continue;CN=C.name+':'+(M[C.name]=(M[C.name]||0)+1);CR=CT=='checkbox'||CT=='radio';if(CR&&V[CN]==true)C.checked=true;if(V[CN]&&!CR&&!C.value&&!C.selectedIndex){if(CT=='select-one'){for(k=0;k<C.options.length;k++){if(C.options[k].value==V[CN]){C.selectedIndex=k}}}else{C.value=V[CN]}}if(C.value=='-')C.value='';V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);}}void(localStorage['formData']=JSON.stringify(V));">storeForm</a> to store or fill in the the values in the form below. Bookmark it or drag it to your bookmark bar to use on any form!
 		<form action="#">
 			<input type="text" name="first_name" placeholder="First name">
 			<input type="text" name="last_name" placeholder="Last name">
