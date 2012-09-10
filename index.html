@@ -41,7 +41,8 @@
 		</script>
 	</head>
 	<body>
-		Click this link: <a href="javascript:V=JSON.parse(localStorage['formData']||'{}');M={};F=document.forms;for(i=0;i<F.length;i++){E=F[i].elements;for(j=0;j<E.length;j++){C=E[j];CT=C.type;if(!C.name||CT=='submit'||CT=='hidden')continue;CN=C.name+':'+(M[C.name]=(M[C.name]||0)+1);CR=CT=='checkbox'||CT=='radio';if(CR&&V[CN]==true)C.checked=true;if(V[CN]&&!CR&&!C.value&&!C.selectedIndex){if(CT=='select-one'){for(k=0;k<C.options.length;k++){if(C.options[k].value==V[CN]){C.selectedIndex=k}}}else{C.value=V[CN]}}if(C.value=='-')C.value='';V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);}}void(localStorage['formData']=JSON.stringify(V));">storeForm</a> to store or fill in the the values in the form below. Bookmark it or drag it to your bookmark bar to use on any form!
+        <p>This bookmarklet lets you save and fill form values, which comes in handy when testing a form that you have to reload repeatedly.</p>
+		<p>Click this link: <a href="javascript:V=JSON.parse(localStorage['formData']||'{}');M={};F=document.forms;for(i=0;i<F.length;i++){E=F[i].elements;for(j=0;j<E.length;j++){C=E[j];CT=C.type;if(!C.name||CT=='submit'||CT=='hidden')continue;CN=C.name+':'+(M[C.name]=(M[C.name]||0)+1);CR=CT=='checkbox'||CT=='radio';if(CR&&V[CN]==true)C.checked=true;if(V[CN]&&!CR&&!C.value&&!C.selectedIndex){if(CT=='select-one'){for(k=0;k<C.options.length;k++){if(C.options[k].value==V[CN]){C.selectedIndex=k}}}else{C.value=V[CN]}}if(C.value=='-')C.value='';V[CN]=(C.options&&C.selectedIndex>-1&&C.options[C.selectedIndex].value)||(CR?C.checked:C.value);}}void(localStorage['formData']=JSON.stringify(V));">storeForm</a> to store or fill in the the values you've entered in the test form below. Bookmark it or drag it to your bookmark bar to use on any form!</p>
 		<form action="#">
 			<input type="text" name="first_name" placeholder="First name">
 			<input type="text" name="last_name" placeholder="Last name">
@@ -78,8 +79,14 @@
 			<input type="hidden" name="hidden2" value="secret2">
 			<input type="hidden" name="hidden3" value="secret3">
 			<input type="submit" value="Submit">
-			<input type="submit" value="storeForm" onClick="storeForm(); return false;">
-			<input type="submit" value="Clear stored form data" onClick="clearForm(); return false;">
+            <p>It works with text and textarea, select, checkbox, and radio controls. It doesn't currently work with multiple-select controls... but when's the last time you used one of those?</p>
+            <p>Once it fills in the fields, you can edit them and select this bookmarklet again to update the saved data - but this only works for text and textarea controls; once you save a checked box or radio button the only way to clear it from the saved data is to open the console and enter the command</p>
+                <blockquote><tt>localStorage.removeItem('formData')</tt></blockquote>
+            and you can click this button
+                <input type="submit" value="Clear stored form data" onClick="clearForm(); return false;">
+    		to execute that command and clear the saved data now.<p>
+            <p>which will clear all the saved data. You can clear a text field by saving it with only a "-".</p>
+            <p>There is a formatted copy of the code in the source of this page, and you can click this button <input type="submit" value="storeForm" onClick="storeForm(); return false;"> to run it.</p>
 		</form>
 	</body>
 </html>
